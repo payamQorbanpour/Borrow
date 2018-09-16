@@ -1,0 +1,47 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+{% if category %}{{ category.title }}{% else %}Products{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row">
+
+    <div class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
+      <div class="">
+        <img class="card-img-top" src="
+        {% if product.image %}
+          {{ product.image.url }}
+        {% else %}
+          {% static "css/img/no_image.jpg" %}
+        {% endif %}
+        ">
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-6">
+      <h1>{{ product.name }}</h1>
+      <h5><a class="badge badge-primary" href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h5>
+      <p>
+        <h5>
+          <!-- <strike class="text-danger price">${{ product.price }}</strike>
+          &nbsp;
+          &nbsp; -->
+          <span class="text-success price">${{ product.price }}</span>
+        </h5>
+      </p>
+      {{ product.description|linebreaks }}
+      <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#collapseButton" aria-expanded="false" aria-controls="collapseButton">
+        Show owner's phone number
+      </button>
+      <div class="collapse" id="collapseButton">
+        <div class="card card-body">
+          {{ product.owner_info }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+{% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+
+{% block jombotron %}
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Album example</h1>
+      <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+      <p>
+        <a href="#" class="btn btn-primary my-2">Main call to action</a>
+        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+      </p>
+    </div>
+  </section>
+{% endblock %}
+
+{% block map %}
+      <div class="container">
+        <div class="row">
+          <div id="mapdiv" class="map_div col-lg-12 col-md-12 col-sm-12 col-xs-12 my-3"></div>
+      </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+  <div id="sidebar" class="m-3">
+    <div class="dropdown show">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Categories
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="{% url "shop:product_list" %}">All</a>
+        {% for c in categories %}
+          <a href="{{ c.get_absolute_url }}" class="dropdown-item">{{ c.name }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <h2>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h2>
+    <hr noshade>
+    <div class="grid ">
+      {% for product in products %}
+      <div class="grid-item col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <div class="card mb-4 shadow-sm">
+          <a href="{{ product.get_absolute_url }}">
+            <img class="card-img-top" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "css/img/no_image.jpg" %}{% endif %}">
+          </a>
+          <div class="card-body">
+           <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
+           <div class="d-flex justify-content-between align-items-center pt-3">
+             <div class="btn-group">
+               <!-- <button type="button" class="btn btn-sm btn-danger">{{ product.urgent_situation }}</button> -->
+             </div>
+             <small class="text-muted">$ {{ product.price }}</small>
+           </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
