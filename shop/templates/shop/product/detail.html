@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div class="col-md-6 col-lg-6">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
       <h2>{{ product.name }}</h2>
       <h5><a class="badge badge-primary" href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h5>
       <p>
@@ -29,6 +29,12 @@
           <span class="text-success price">${{ product.price }}</span>
         </h5>
       </p>
+      <div class="health col-lg-3 col-md-4 col-sm-6 col-xs-6">
+        <h6>Health</h6>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" style="width: {{ product.health }}%"  aria-valuemin="0" aria-valuemax="10">{{ product.health }}%</div>
+        </div>
+      </div>
       </br>
       {{ product.description|linebreaks }}
       <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#collapseButton" aria-expanded="false" aria-controls="collapseButton">

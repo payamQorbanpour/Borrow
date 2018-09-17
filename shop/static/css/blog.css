@@ -47,3 +47,9 @@ footer p {
   height: 30rem;
   padding: 0 !important;
 }
+
+
+/***** Health progressbar *****/
+.health {
+  padding: 0 !important;
+}
