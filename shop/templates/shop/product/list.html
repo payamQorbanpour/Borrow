@@ -1,7 +1,7 @@
 {% extends "shop/base.html" %}
 {% load static %}
 {% block title %}
-{% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% if category %}{{ category.name }} | Borrow{% else %}Products{% endif %}
 {% endblock %}
 
 {% block jombotron %}
@@ -41,7 +41,7 @@
   </div>
 
   <div class="container-fluid">
-    <h2>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h2>
+    <h2>{% if category %}{{ category.name }}{% else %}All{% endif %}</h2>
     <hr noshade>
     <div class="grid ">
       {% for product in products %}
