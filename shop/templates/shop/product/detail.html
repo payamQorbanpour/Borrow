@@ -20,7 +20,10 @@
 
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
       <h2>{{ product.name }}</h2>
-      <h5><a class="badge badge-primary" href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h5>
+      <h5>
+        <a class="badge badge-primary" href="{{ product.category.get_absolute_url }}">{{ product.category }}</a>&nbsp
+        <a class="badge badge-primary" href="{{ product.location.get_absolute_url }}">{{ product.location }}</a>
+      </h5>
       <p>
         <h5>
           <!-- <strike class="text-danger price">${{ product.price }}</strike>
