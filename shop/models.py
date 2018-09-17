@@ -28,6 +28,7 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    location = models.CharField(max_length=200, default=False)
 
     class Meta:
         ordering = ('-created',)
