@@ -1,7 +1,13 @@
 {% extends "shop/base.html" %}
 {% load static %}
 {% block title %}
-{% if category %}{{ category.name }} | Borrow{% else %}Products{% endif %}
+{% if category %}
+  {{ category.name }} | Borrow
+{% elif location %}
+  {{ location.name }} | Borrow
+{% else %}
+  All | Borrow
+{% endif %}
 {% endblock %}
 
 {% block jombotron %}
@@ -26,7 +32,7 @@
 {% endblock %}
 
 {% block content %}
-  <div id="sidebar" class="m-3">
+  <div id="sidebar" class="btn-group m-3">
     <div class="dropdown show">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Categories
@@ -38,10 +44,30 @@
         {% endfor %}
       </div>
     </div>
+    &nbsp;
+    <div class="dropdown show">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Locations
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="{% url "shop:product_list" %}">Iran</a>
+        {% for l in locations %}
+          <a href="{{ l.get_absolute_url }}" class="dropdown-item">{{ l.name }}</a>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 
   <div class="container-fluid">
-    <h2>{% if category %}{{ category.name }}{% else %}All{% endif %}</h2>
+    <h2>
+      {% if category %}
+        {{ category.name }}
+      {% elif location %}
+        {{ location.name }}
+      {% else %}
+        All
+      {% endif %}
+    </h2>
     <hr noshade>
     <div class="grid ">
       {% for product in products %}

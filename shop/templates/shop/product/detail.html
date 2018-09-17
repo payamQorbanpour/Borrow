@@ -22,7 +22,11 @@
       <h2>{{ product.name }}</h2>
       <h5>
         <a class="badge badge-primary" href="{{ product.category.get_absolute_url }}">{{ product.category }}</a>&nbsp
-        <a class="badge badge-primary" href="{{ product.location.get_absolute_url }}">{{ product.location }}</a>
+        {% if product.location %}
+          <a class="badge badge-primary" href="{{ product.location.get_absolute_url }}">{{ product.location }}</a>
+        {% else %}
+          <a class="badge badge-primary" href="#">Iran</a>
+        {% endif %}
       </h5>
       <p>
         <h5>
@@ -40,12 +44,14 @@
       </div>
       </br>
       {{ product.description|linebreaks }}
-      <div id=condition class="card border-danger text-muted text-center">
-        <h6 class="card-header">Conditions</h6>
-        <div class="card-body">
-          <p class="card-text">{{ product.condition }}</p>
+      {% if product.condition %}
+        <div id=condition class="card border-danger text-muted text-center">
+          <h6 class="card-header">Conditions</h6>
+          <div class="card-body">
+            <p class="card-text">{{ product.condition }}</p>
+          </div>
         </div>
-      </div>
+      {% endif %}
       </br>
       <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#collapseButton" aria-expanded="false" aria-controls="collapseButton">
         Show owner's phone number

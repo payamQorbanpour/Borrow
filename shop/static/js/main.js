@@ -16,8 +16,8 @@ AmCharts.makeChart( "mapdiv", {
   "dataProvider": {
     "map": "iranHigh",
     "areas": [
-        { "id": "IR-32", "color": "#0080ff" , "url":"http://www.tehran.ir" },
-        { "id": "IR-15", "color": "#0080ff" },
+        { "id": "IR-32", "color": "#0080ff" , "url":"http://localhost:8000/categories/alborz/" },
+        { "id": "IR-15", "color": "#0080ff" , "url":"http://localhost:8000/categories/kerman/" },
         { "id": "IR-13", "color": "#0080ff" },
         { "id": "IR-31", "color": "#0080ff" },
         { "id": "IR-30", "color": "#0080ff" },

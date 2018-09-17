@@ -6,6 +6,20 @@ from shop.choices import *
 
 # Create your models here.
 
+class Location(models.Model):
+    name = models.CharField(max_length=200, db_index=True)
+    slug = models.SlugField(max_length=200, db_index=True, unique=True)
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'location'
+        verbose_name_plural = 'locations'
+
+    def get_absolute_url(self):
+        return reverse('shop:product_list_by_location', args=[self.slug])
+
+    def __str__(self):
+        return self.name
+
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
@@ -31,7 +45,7 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    location = models.CharField(max_length=200, default="")
+    location = models.ForeignKey(Location, related_name='products', on_delete=models.CASCADE)
     phone_regex = RegexValidator(regex=r'^\+?09?\d{9,15}$', message="Phone number must be entered in the format: '09123456789'. Up to 11 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], max_length=11, help_text="Enter your number formatted like: 09********")
     status = models.IntegerField(choices=STATUS_CHOICES, default='1')
