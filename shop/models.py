@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from phone_field import PhoneField
 from django.core.validators import RegexValidator
+from shop.choices import *
 
 # Create your models here.
 
@@ -33,6 +34,7 @@ class Product(models.Model):
     location = models.CharField(max_length=200, default="")
     phone_regex = RegexValidator(regex=r'^\+?09?\d{9,15}$', message="Phone number must be entered in the format: '09123456789'. Up to 11 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], max_length=11, help_text="Enter your number formatted like: 09********")
+    status = models.IntegerField(choices=STATUS_CHOICES, default='1')
 
     class Meta:
         ordering = ('-created',)
@@ -43,10 +45,9 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('shop:product_detail', args=[self.id, self.slug])
-    #
-    # def phone_number_validation(self):
-    #     phone_digits = [int(i) for i in str(self.phone)]
-    #     if self.phone.is_E164:
-    #         return self.phone
-    #     elif phone_digits[0] == 0:
-    #         return False
+
+    def special(self):
+        if self.status == 2:
+            return True
+        else:
+            return False

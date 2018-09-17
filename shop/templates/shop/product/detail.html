@@ -21,7 +21,7 @@
     </div>
 
     <div class="col-md-6 col-lg-6">
-      <h1>{{ product.name }}</h1>
+      <h2>{{ product.name }}</h2>
       <h5><a class="badge badge-primary" href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h5>
       <p>
         <h5>
@@ -31,6 +31,7 @@
           <span class="text-success price">${{ product.price }}</span>
         </h5>
       </p>
+      </br>
       {{ product.description|linebreaks }}
       <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#collapseButton" aria-expanded="false" aria-controls="collapseButton">
         Show owner's phone number
