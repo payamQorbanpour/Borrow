@@ -39,6 +39,7 @@ class Product(models.Model):
                                         validators=[MinValueValidator(0),MaxValueValidator(100),],
                                         help_text="How healthy is your thing out of 100?",
                                         blank=False)
+    condition = models.TextField(blank=True)
 
     class Meta:
         ordering = ('-created',)

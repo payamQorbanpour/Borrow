@@ -40,6 +40,13 @@
       </div>
       </br>
       {{ product.description|linebreaks }}
+      <div id=condition class="card border-danger text-muted text-center">
+        <h6 class="card-header">Conditions</h6>
+        <div class="card-body">
+          <p class="card-text">{{ product.condition }}</p>
+        </div>
+      </div>
+      </br>
       <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#collapseButton" aria-expanded="false" aria-controls="collapseButton">
         Show owner's phone number
       </button>
