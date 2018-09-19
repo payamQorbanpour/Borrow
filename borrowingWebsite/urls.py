@@ -24,6 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^', include('shop.urls')),
     url(r'^account/', include('account.urls')),
+    # Social authentication
+    url(r'^auth/', include('social_django.urls', namespace='social')),
 ]
 
 if settings.DEBUG:
