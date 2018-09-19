@@ -14,4 +14,10 @@ urlpatterns = [
     # change password urls
     url(r'^dashboard/password-change/$', auth_views.password_change, name='change_password'),
     url(r'^dashboard/password-change/done/$', auth_views.password_change_done, name='password_change_done'),
+
+    # restore password urls
+    url(r'^dashboard/password-reset/$', auth_views.password_reset, name='password_reset'),
+    url(r'^dashboard/password-reset/done/$', auth_views.password_reset_done, name='password_reset_done'),
+    url(r'^dashboard/password-reset/confirm/(?P<uidb64>[-\w]+)/(?P<token>[-\w]+)/$', auth_views.password_reset_confirm, name='password_reset_confirm'),
+    url(r'^dashboard/password-reset/complete/$', auth_views.password_reset_complete, name='password_reset_complete'),
     ]
