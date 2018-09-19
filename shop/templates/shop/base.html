@@ -79,6 +79,16 @@
       </span>
     </div>
 
+    {% if messages %}
+      <div class="alert alert-secondary mx-4">
+        {% for message in messages %}
+          <span class="{{ message.tags }}">
+            {{ message|safe }}
+          </span>
+        {% endfor %}
+      </div>
+    {% endif %}
+
     <main role="main">
 
       {% block map %}
