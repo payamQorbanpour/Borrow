@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 app_name = 'shop'
 
 urlpatterns = [
+    url(r'^create/$', views.product_create, name='product_create'),
     url(r'^$', views.product_list, name='product_list'),
     url(r'^(?P<category_slug>[-\w]+)/$', views.product_list, name='product_list_by_category'),
     url(r'^categories/(?P<location_slug>[-\w]+)/$', views.product_list, name='product_list_by_location'),

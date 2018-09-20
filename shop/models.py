@@ -3,6 +3,8 @@ from django.urls import reverse
 from phone_field import PhoneField
 from django.core.validators import RegexValidator, MaxValueValidator, MinValueValidator
 from shop.choices import *
+from django.conf import settings
+from django.utils.text import slugify
 
 # Create your models here.
 
@@ -35,6 +37,7 @@ class Category(models.Model):
         return self.name
 
 class Product(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
@@ -70,3 +73,8 @@ class Product(models.Model):
             return True
         else:
             return False
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)

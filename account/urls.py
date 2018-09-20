@@ -27,6 +27,4 @@ urlpatterns = [
 
     # User edit profile
     url(r'^dashboard/edit/$', views.edit, name='edit'),
-
-
     ]

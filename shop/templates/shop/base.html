@@ -54,7 +54,7 @@
       </div>
       <div class="navbar navbar-dark bg-dark box-shadow">
         <div class="container d-flex justify-content-between">
-          <button class="btn btn-primary btn-sm ">Add things</button>
+          <a class="btn btn-primary btn-sm" href="{% url "shop:product_create" %}">Add things</a>
           <a href="#" class="navbar-brand d-flex align-items-center">
             <strong>Borrow</strong>
           </a>
@@ -71,7 +71,12 @@
       {% endif %}
       <span class="user">
         {% if request.user.is_authenticated %}
-          Hello {{ request.user.first_name }},
+          Hello
+          {% if request.user.first_name %}
+            {{ request.user.first_name }},
+          {% else %}
+            {{ request.user.username }},
+          {% endif %}
           <a href="{% url "logout" %}">Logout</a>
         {% else %}
           <a href="{% url "login" %}">Log-in</a>
