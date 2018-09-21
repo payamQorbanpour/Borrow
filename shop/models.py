@@ -68,7 +68,7 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('shop:product_detail', args=[self.id, self.slug])
 
-    def special(self):
+    def promoted(self):
         if self.status == 2:
             return True
         else:
