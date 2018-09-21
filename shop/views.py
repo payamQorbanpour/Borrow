@@ -3,6 +3,9 @@ from .models import Category, Product, Location
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from .forms import AddProductForm
+from django.urls import reverse
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -30,9 +33,10 @@ def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
     return render(request, 'shop/product/detail.html', {'product': product})
 
+@login_required
 def product_create(request):
-    if not request.user.is_authenticated:
-        raise Http404
+    # if not request.user.is_authenticated:
+    #     return HttpResponseRedirect(reverse('account:login'))
 
     form = AddProductForm(request.POST or None, request.FILES or None)
     if form.is_valid():

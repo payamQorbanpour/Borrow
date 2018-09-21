@@ -1,8 +1,9 @@
 from django.conf.urls import url
 from . import views
 from django.contrib.auth import views as auth_views
-
 from .forms import LoginForm
+
+# app_name = 'account'
 
 urlpatterns = [
 
