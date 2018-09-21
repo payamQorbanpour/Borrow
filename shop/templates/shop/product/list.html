@@ -82,13 +82,16 @@
             <img class="card-img-top" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "css/img/no_image.jpg" %}{% endif %}">
           </a>
           <div class="card-body">
-           <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
+            {% if product.special %}
+            <a class="text-danger card-link" href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
+            {% else %}
+             <a class="card-link" href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
+            {% endif %}
+
            <div class="d-flex justify-content-between align-items-center pt-3">
              <div class="btn-group">
                <!-- <button type="button" class="btn btn-sm btn-danger">{{ product.urgent_situation }}</button> -->
-               {% if product.special %}
-                 <small class="badge badge-danger">Special</small>
-               {% endif %}
+
              </div>
              <small class="text-muted">$ {{ product.price }}</small>
            </div>
