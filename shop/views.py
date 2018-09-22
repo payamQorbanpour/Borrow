@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 
 # Create your views here.
 
@@ -16,16 +17,22 @@ def product_list(request, category_slug=None, location_slug=None):
     location = None
     locations = Location.objects.all()
     products = Product.objects.filter(available=True)
-    paginator = Paginator(products, 8)
+    paginator = Paginator(products, 4) # Number of objects on a page
     page = request.GET.get('page', 1)
-    try:
-        products = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer deliver the first page
-        products = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range deliver last page of results
-        products = paginator.page(paginator.num_pages)
+    query = request.GET.get("q")
+    if query:
+        products = products.filter(
+            Q(name__contains=query) |
+            Q(description__contains=query)
+            ).distinct()
+    # try:
+    #     products = paginator.page(page)
+    # except PageNotAnInteger:
+    #     # If page is not an integer deliver the first page
+    #     products = paginator.page(1)
+    # except EmptyPage:
+    #     # If page is out of range deliver last page of results
+    #     products = paginator.page(paginator.num_pages)
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
