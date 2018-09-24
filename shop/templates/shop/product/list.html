@@ -32,7 +32,7 @@
 {% endblock %}
 
 {% block content %}
-  <div id="sidebar" class="btn-group m-3">
+  <div id="sidebar" class="col-lg-12 btn-group m-3 p-1 border border-secondary rounded d-flex">
     <div class="dropdown show">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Categories
@@ -57,8 +57,8 @@
       </div>
     </div>
     &nbsp;
-    <form action="" method="GET">
-      <div class="input-group mb-3">
+    <form class="ml-auto" action="" method="GET">
+      <div class="input-group ml-auto">
         <input class="form-control" type="text" name="q" placeholder="Search" aria-describedby="basic-addon1" value="{{ request.GET.q }}">
         <div class="input-group-prepend">
           <button class="btn btn-outline-secondary" type="submit" aria-describedby="basic-addon2">Search</button>
@@ -83,7 +83,7 @@
       <div class="grid-item col-lg-3 col-md-4 col-sm-6 col-xs-12">
 
         {% if product.promoted %}
-        <div class="card border-danger mb-4 shadow-lg">
+        <div class="card bg-primary mb-4 shadow-lg">
         {% else %}
         <div class="card mb-4 shadow-sm">
         {% endif %}
@@ -92,7 +92,7 @@
           </a>
           <div class="card-body">
             {% if product.promoted %}
-            <a class="text-danger card-link" href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
+            <a class="text-white card-link" href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
             {% else %}
              <a class="card-link" href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
             {% endif %}
@@ -100,9 +100,9 @@
            <div class="d-flex justify-content-between align-items-center pt-3">
              <div class="btn-group">
                <!-- <button type="button" class="btn btn-sm btn-danger">{{ product.urgent_situation }}</button> -->
-               {% if product.promoted %}
+               <!-- {% if product.promoted %}
                  <small class="badge badge-danger">Promoted</small>
-               {% endif %}
+               {% endif %} -->
 
              </div>
              <small class="text-muted">$ {{ product.price }}</small>
