@@ -26,7 +26,8 @@
         <button class="btn btn-primary " type="submit">Log-in</button>
       </form>
       <!-- <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br> -->
-      <p class="my-3"><a href="{% url "password_reset" %}">Forgotten your password?</a></p>
+      <p class="d-flex justify-content-between my-3"><a href="{% url "password_reset" %}">Forgotten your password?</a>
+      <a href="{% url "register" %}">Register</a></p>
     </div>
   </div>
 {% endblock %}

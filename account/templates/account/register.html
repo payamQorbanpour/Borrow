@@ -7,11 +7,55 @@
     <h1>Create an account</h1>
     <hr>
     <p>Please, sign up using the following form:</p>
-    <form action="." method="post">
-      {{ user_form.as_p }}
-      {% csrf_token %}
-      <button class="btn btn-primary" type="submit">Create my account</button>
-    </form>
-    <!-- <a href="{% url 'social:begin' 'google-oauth2' %}">Register with Google</a><br> -->
+    <div class="card shadow col-lg-12">
+      <div class="card-body">
+
+        <form action="." method="post">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label>Username</label>
+              {{ user_form.username }}
+            </div>
+          </div>
+          <div class="form-row">
+           <div class="col-md-4 mb-3">
+             <label>First name</label>
+             {{ user_form.first_name }}
+           </div>
+           <div class="col-md-4 mb-3">
+             <label>Last name</label>
+             {{ user_form.last_name }}
+           </div>
+         </div>
+         <div class="form-row">
+           <div class="col-md-4 mb-3">
+            <label for="validationDefaultUsername">Email</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">@</span>
+              </div>
+              {{ user_form.email }}
+            </div>
+            <small id="passwordHelpInline" class="form-text text-muted">
+              example@example.com
+            </small>
+          </div>
+         </div>
+         <div class="form-row">
+           <div class="col-md-4 mb-3">
+             <label>Password</label>
+             {{ user_form.password }}
+           </div>
+          <div class="col-md-4 mb-3">
+            <label>Repeat password</label>
+            {{ user_form.password2 }}
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Create my account</button>
+        </form>
+        <!-- <a href="{% url 'social:begin' 'google-oauth2' %}">Register with Google</a><br> -->
+      </div>
+    </div>
   </div>
 {% endblock %}
