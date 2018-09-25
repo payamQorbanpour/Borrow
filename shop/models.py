@@ -52,7 +52,7 @@ class Product(models.Model):
     phone_regex = RegexValidator(regex=r'^\+?09?\d{9,15}$', message="Phone number must be entered in the format: '09123456789'. Up to 11 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], max_length=11, help_text="Enter your number formatted like: 09********")
     status = models.IntegerField(choices=STATUS_CHOICES, default='1')
-    health = models.PositiveIntegerField(default=10,
+    health = models.PositiveIntegerField(default=50,
                                         validators=[MinValueValidator(0),MaxValueValidator(100),],
                                         help_text="How healthy is your thing out of 100?",
                                         blank=False)

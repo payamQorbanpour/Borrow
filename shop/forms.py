@@ -14,4 +14,5 @@ class AddProductForm(forms.ModelForm):
             "location",
             "phone_number",
             "health",
+            "image",
         ]
