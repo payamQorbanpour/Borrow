@@ -105,7 +105,11 @@
                {% endif %} -->
 
              </div>
-             <small class="text-muted">From ${{ product.price_per_day }}</small>
+             {% if product.price_per_day %}
+               <small class="text-muted">From ${{ product.price_per_day }}</small>
+             {% elif product.price %}
+               <small class="text-muted">${{ product.price }}</small>
+             {% endif %}
            </div>
           </div>
         </div>
