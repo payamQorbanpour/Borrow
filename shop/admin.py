@@ -14,8 +14,8 @@ class LocationAdmin(admin.ModelAdmin):
 admin.site.register(Location, LocationAdmin)
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug', 'price', 'stock', 'available', 'created', 'updated']
+    list_display = ['id', 'name', 'slug', 'available', 'created', 'updated']
     list_filter = ['available', 'created', 'updated']
-    list_editable = ['price', 'stock', 'available']
+    list_editable = ['available',]
     prepopulated_fields = {'slug': ('name',)}
 admin.site.register(Product, ProductAdmin)
