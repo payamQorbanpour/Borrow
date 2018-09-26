@@ -44,13 +44,17 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    price_per_day = models.DecimalField(max_digits=10, decimal_places=0)
+    price_per_week = models.DecimalField(max_digits=10, decimal_places=0)
+    price_per_month = models.DecimalField(max_digits=10, decimal_places=0)
+    price_per_year = models.DecimalField(max_digits=10, decimal_places=0)
     stock = models.PositiveIntegerField(default=1)
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     location = models.ForeignKey(Location, related_name='products', on_delete=models.CASCADE)
     phone_regex = RegexValidator(regex=r'^\+?09?\d{9,15}$', message="Phone number must be entered in the format: '09123456789'. Up to 11 digits allowed.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=11, help_text="Enter your number formatted like: 09********")
+    phone_number = models.CharField(validators=[phone_regex], max_length=11, help_text="Enter your number formatted like: 09123456789")
     status = models.IntegerField(choices=STATUS_CHOICES, default='1')
     health = models.PositiveIntegerField(default=50,
                                         validators=[MinValueValidator(0),MaxValueValidator(100),],
