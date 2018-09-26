@@ -62,22 +62,30 @@
       {% endif %}
       </br>
       <ul class="list-group">
+        {% if product.price_per_day %}
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <p>Price per <strong>day</strong></p>
           <span class="badge badge-primary badge-pill">${{ product.price_per_day }}</span>
         </li>
+        {% endif %}
+        {% if product.price_per_week %}
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <p>Price per <strong>week</strong></p>
           <span class="badge badge-primary badge-pill">${{ product.price_per_week }}</span>
         </li>
+        {% endif %}
+        {% if product.price_per_month %}
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <p>Price per <strong>month</strong></p>
           <span class="badge badge-primary badge-pill">${{ product.price_per_month }}</span>
         </li>
+        {% endif %}
+        {% if product.price_per_year %}
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <p>Price per <strong>year</strong></p>
           <span class="badge badge-primary badge-pill">${{ product.price_per_year }}</span>
         </li>
+        {% endif %}
       </ul>
       </br>
       <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#collapseButton" aria-expanded="false" aria-controls="collapseButton">

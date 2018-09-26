@@ -10,7 +10,10 @@ class AddProductForm(forms.ModelForm):
         fields = [
             "name",
             "category",
-            "price",
+            "price_per_day",
+            "price_per_week",
+            "price_per_month",
+            "price_per_year",
             "location",
             "phone_number",
             "health",
