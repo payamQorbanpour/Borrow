@@ -5,6 +5,13 @@ from .models import Product
 
 
 class AddProductForm(forms.ModelForm):
+    image = forms.ImageField(widget=forms.ClearableFileInput(
+        attrs =
+        {
+        'class' : 'form-control',
+        'multiple': 'true'
+        }
+    ))
     class Meta:
         model = Product
         fields = [
