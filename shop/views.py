@@ -23,7 +23,8 @@ def product_list(request, category_slug=None, location_slug=None):
     if query:
         products = products.filter(
             Q(name__contains=query) |
-            Q(description__contains=query)
+            Q(description__contains=query) |
+            Q(category__name__contains=query)
             ).distinct()
     # try:
     #     products = paginator.page(page)
