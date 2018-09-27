@@ -5,6 +5,7 @@ from django.core.validators import RegexValidator, MaxValueValidator, MinValueVa
 from shop.choices import *
 from django.conf import settings
 from django.utils.text import slugify
+import uuid
 
 # Create your models here.
 
@@ -37,6 +38,7 @@ class Category(models.Model):
         return self.name
 
 class Product(models.Model):
+    uuid = models.CharField(max_length=200, default=int(uuid.uuid4().time_low), editable=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     name = models.CharField(max_length=200, db_index=True)
