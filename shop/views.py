@@ -49,8 +49,8 @@ def product_list(request, category_slug=None, location_slug=None):
                }
     return render(request, 'shop/product/list.html', context)
 
-def product_detail(request, id, slug):
-    product = get_object_or_404(Product, id=id, slug=slug, available=True)
+def product_detail(request, uuid, slug):
+    product = get_object_or_404(Product, uuid=uuid, slug=slug, available=True)
     return render(request, 'shop/product/detail.html', {'product': product})
 
 @login_required
