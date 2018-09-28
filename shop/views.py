@@ -71,11 +71,14 @@ def product_create(request):
             add_product_form.save()
 
             for form in formset.cleaned_data:
-                image = form['image']
+                try:
+                    image = form['image']
+                except KeyError:
+                    break
                 photo = Gallery(product=add_product_form, image=image)
                 photo.save()
             messages.success(request,
-                             "Yeeew, check it out on the home page!")
+                             "Your thing was successfuly uploaded!")
             return HttpResponseRedirect("/")
         else:
             print (addProductForm.errors, formset.errors)

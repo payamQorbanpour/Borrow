@@ -19,7 +19,12 @@ class AddProductForm(forms.ModelForm):
 
 
 class GalleryForm(forms.ModelForm):
-    image = forms.ImageField(label='Image')
+    image = forms.ImageField(label='Image', widget=forms.ClearableFileInput(
+        attrs={
+            'blank': 'True',
+            'null': 'True',
+        }
+    ))
 
     class Meta:
         model = Gallery

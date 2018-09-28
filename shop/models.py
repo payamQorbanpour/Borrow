@@ -129,4 +129,6 @@ class Gallery(models.Model):
                                 default=None,
                                 on_delete=models.CASCADE)
     image = models.ImageField(upload_to='products/%Y/%m/%d/%f',
-                              verbose_name='Image')
+                              verbose_name='Image',
+                              blank=True,
+                              null=True)
