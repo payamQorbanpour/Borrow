@@ -1,16 +1,15 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Product, Location, Gallery
 from django.contrib import messages
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect
 from .forms import AddProductForm, GalleryForm
-from django.urls import reverse
-from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+# from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.forms import modelformset_factory
 
 # Create your views here.
+
 
 def product_list(request, category_slug=None, location_slug=None):
     category = None
@@ -18,14 +17,14 @@ def product_list(request, category_slug=None, location_slug=None):
     location = None
     locations = Location.objects.all()
     products = Product.objects.filter(available=True)
-    paginator = Paginator(products, 4) # Number of objects on a page
+    # paginator = Paginator(products, 4) # Number of objects on a page
     page = request.GET.get('page', 1)
     query = request.GET.get("q")
     if query:
         products = products.filter(
-            Q(name__contains=query) |
-            Q(description__contains=query) |
-            Q(category__name__contains=query)
+              Q(name__contains=query)
+            | Q(description__contains=query)
+            | Q(category__name__contains=query)
             ).distinct()
     # try:
     #     products = paginator.page(page)
@@ -58,8 +57,7 @@ def product_detail(request, uuid, slug):
 
 @login_required
 def product_create(request):
-    # if not request.user.is_authenticated:
-    #     return HttpResponseRedirect(reverse('account:login'))
+
     ImageFormSet = modelformset_factory(Gallery, form=GalleryForm, extra=3)
     if request.method == 'POST':
 
