@@ -1,17 +1,8 @@
-from django.contrib.auth.forms import AuthenticationForm
 from django import forms
-from django.contrib.auth.models import User
-from .models import Product
+from .models import Product, Gallery
 
 
 class AddProductForm(forms.ModelForm):
-    image = forms.ImageField(widget=forms.ClearableFileInput(
-        attrs =
-        {
-        'class' : 'form-control',
-        'multiple': 'true'
-        }
-    ))
     class Meta:
         model = Product
         fields = [
@@ -24,5 +15,12 @@ class AddProductForm(forms.ModelForm):
             "location",
             "phone_number",
             "health",
-            "image",
         ]
+
+
+class GalleryForm(forms.ModelForm):
+    image = forms.ImageField(label='Image')
+
+    class Meta:
+        model = Gallery
+        fields = ['image', ]

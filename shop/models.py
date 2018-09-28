@@ -43,7 +43,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
-    image = models.FileField(upload_to='products/%Y/%m/%d/%f', blank=True)
+    # image = models.FileField(upload_to='products/%Y/%m/%d/%f', blank=True)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=0, null=True, blank=True)
     price_per_day = models.DecimalField(max_digits=10, decimal_places=0, null=True, blank=True)
@@ -54,10 +54,15 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    location = models.ForeignKey(Location, related_name='products', on_delete=models.CASCADE)
-    phone_regex = RegexValidator(regex=r'^\+?09?\d{9,15}$', message="Phone number must be entered in the format: '09123456789'. Up to 11 digits allowed.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=11, help_text="Enter your number formatted like: 09123456789")
-    status = models.IntegerField(choices=STATUS_CHOICES, default='1')
+    location = models.ForeignKey(Location,
+                                 related_name='products',
+                                 on_delete=models.CASCADE)
+    phone_regex = RegexValidator(regex=r'^\+?09?\d{9,15}$',
+                                 message="Phone number must be entered in the format: '09123456789'. Up to 11 digits allowed.")
+    phone_number = models.CharField(validators=[phone_regex],
+                                    max_length=11, help_text="Enter your number formatted like: 09123456789")
+    status = models.IntegerField(choices=STATUS_CHOICES,
+                                 default='1')
     health = models.PositiveIntegerField(default=50,
                                         validators=[MinValueValidator(0),MaxValueValidator(100),],
                                         help_text="How healthy is your thing out of 100?",
@@ -84,3 +89,11 @@ class Product(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+
+class Gallery(models.Model):
+    product = models.ForeignKey(Product,
+                                default=None,
+                                on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='products/%Y/%m/%d/%f',
+                              verbose_name='Image')

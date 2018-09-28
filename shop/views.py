@@ -1,13 +1,14 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Category, Product, Location
+from .models import Category, Product, Location, Gallery
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from .forms import AddProductForm
+from .forms import AddProductForm, GalleryForm
 from django.urls import reverse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
+from django.forms import modelformset_factory
 
 # Create your views here.
 
@@ -49,24 +50,39 @@ def product_list(request, category_slug=None, location_slug=None):
                }
     return render(request, 'shop/product/list.html', context)
 
+
 def product_detail(request, uuid, slug):
     product = get_object_or_404(Product, uuid=uuid, slug=slug, available=True)
     return render(request, 'shop/product/detail.html', {'product': product})
+
 
 @login_required
 def product_create(request):
     # if not request.user.is_authenticated:
     #     return HttpResponseRedirect(reverse('account:login'))
+    ImageFormSet = modelformset_factory(Gallery, form=GalleryForm, extra=3)
+    if request.method == 'POST':
 
-    form = AddProductForm(request.POST or None, request.FILES or None)
-    if form.is_valid():
-        instance = form.save(commit=False)
-        # instance.user = request.user
-        instance.save()
+        addProductForm = AddProductForm(request.POST)
+        formset = ImageFormSet(request.POST, request.FILES,
+                               queryset=Gallery.objects.none())
 
-        messages.success(request, "Successfully created.")
-        return HttpResponseRedirect(instance.get_absolute_url())
-    context = {
-        "form" : form,
-    }
-    return render(request, "shop/product/create.html", context)
+        if addProductForm.is_valid() and formset.is_valid():
+            add_product_form = addProductForm.save(commit=False)
+            add_product_form.user = request.user
+            add_product_form.save()
+
+            for form in formset.cleaned_data:
+                image = form['image']
+                photo = Gallery(product=add_product_form, image=image)
+                photo.save()
+            messages.success(request,
+                             "Yeeew, check it out on the home page!")
+            return HttpResponseRedirect("/")
+        else:
+            print (addProductForm.errors, formset.errors)
+    else:
+        addProductForm = AddProductForm()
+        formset = ImageFormSet(queryset=Gallery.objects.none())
+    return render(request, 'shop/product/create.html',
+                  {'addProductForm': addProductForm, 'formset': formset})
