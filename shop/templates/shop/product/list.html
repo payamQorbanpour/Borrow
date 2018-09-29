@@ -89,13 +89,12 @@
         {% endif %}
           <a href="{{ product.get_absolute_url }}">
             {% if product.gallery_set.all %}
-              {% for p in product.gallery_set.all %}
                 <div class="">
                   <img class="card-img-top" src="
-                    {{ p.image.url }}
-                  ">
+                  {% for p in product.gallery_set.all %}
+                    {{ p.image.url }}"
+                  {% endfor %}>
                 </div>
-              {% endfor %}
             {% else %}
               <div class="">
                 <img class="card-img-top" src="
