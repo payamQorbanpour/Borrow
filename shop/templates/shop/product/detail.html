@@ -17,9 +17,11 @@
       {% if product.gallery_set.all %}
         {% for p in product.gallery_set.all %}
           <div class="">
-            <img class="card-img-top" src="
-              {{ p.image.url }}
-            ">
+            <a href="{{ p.image.url }}">
+              <img class="card-img-top" src="
+                {{ p.image.url }}
+              ">
+            </a>
           </div>
         {% endfor %}
       {% else %}
