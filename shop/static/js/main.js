@@ -8,7 +8,6 @@ $(function(){
 });
 
 
-
 //***** ammap *****//
 AmCharts.makeChart( "mapdiv", {
   "dragMap": false,

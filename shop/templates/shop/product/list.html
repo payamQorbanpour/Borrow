@@ -78,9 +78,26 @@
       {% endif %}
     </h2>
     <hr noshade>
-    <div class="grid ">
+
+	<main class="cd-main-content">
+    <div class="cd-tab-filter-wrapper">
+      <div class="cd-tab-filter">
+        <ul class="cd-filters">
+
+          <li class="filter"><a class="selected" href="#0" data-type="all">All</a></li>
+          {% for category in categories %}
+            <li class="filter" data-filter=".{{ category.name }}"><a href="#0" data-type="color-1">{{ category.name }}</a></li>
+          {% endfor %}
+        </ul> <!-- cd-filters -->
+      </div> <!-- cd-tab-filter -->
+    </div> <!-- cd-tab-filter-wrapper -->
+
+  		<section class="cd-gallery grid">
+        <ul>
+
       {% for product in products %}
       <div class="grid-item col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <li class=" mix {{ product.category }}">
 
         {% if product.promoted %}
         <div class="card bg-primary mb-4 shadow-lg">
@@ -116,7 +133,7 @@
                <!-- {% if product.promoted %}
                  <small class="badge badge-danger">Promoted</small>
                {% endif %} -->
-
+               {{ product.category }}
              </div>
              {% if product.price_per_day %}
                <small class="text-muted">From ${{ product.price_per_day }}</small>
@@ -126,9 +143,14 @@
            </div>
           </div>
         </div>
+      </li>
       </div>
       {% endfor %}
-    </div>
+    </ul>
+    <div class="cd-fail-message">No results found</div>
+    </section>
+
+    </main>
   </div>
   <!-- <div class="col-lg-4 pagination">
     <span class="step-links">
